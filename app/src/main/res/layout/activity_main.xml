@@ -64,7 +64,6 @@
         android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +80,6 @@
         android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Amount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +96,6 @@
         android:layout_marginRight="8dp"
         android:ems="10"
         android:inputType="time"
-        android:text="10:00"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -111,5 +108,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.2" />
+
+    <Button
+        android:id="@+id/addButton"
+        android:layout_width="165dp"
+        android:layout_height="124dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:lineSpacingExtra="0sp"
+        android:onClick="addNewReminder"
+        android:text="ADD"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
 </android.support.constraint.ConstraintLayout>

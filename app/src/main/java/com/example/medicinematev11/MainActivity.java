@@ -1,5 +1,6 @@
 package com.example.medicinematev11;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,9 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+
+import java.util.jar.Attributes;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView medicineName;
     private TextView medicineAmount;
     private TextView medicineTime;
+    private Button addingButton;
 
 
 
@@ -39,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                     medicineAmount.setVisibility(View.INVISIBLE);
                     medicineTime.setEnabled(false);
                     medicineTime.setVisibility(View.INVISIBLE);
+                    addingButton.setEnabled(false);
+                    addingButton.setVisibility(View.INVISIBLE);
 
                     return true;
                 case R.id.navigation_dashboard:
@@ -53,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
                     medicineAmount.setVisibility(View.VISIBLE);
                     medicineTime.setEnabled(true);
                     medicineTime.setVisibility(View.VISIBLE);
+                    addingButton.setEnabled(true);
+                    addingButton.setVisibility(View.VISIBLE);
 
                     return true;
                 case R.id.navigation_notifications:
@@ -67,36 +77,52 @@ public class MainActivity extends AppCompatActivity {
                     medicineAmount.setVisibility(View.INVISIBLE);
                     medicineTime.setEnabled(false);
                     medicineTime.setVisibility(View.INVISIBLE);
+                    addingButton.setEnabled(false);
+                    addingButton.setVisibility(View.INVISIBLE);
 
                     return true;
             }
             return false;
         }
     };
-
+    public static final String NAME_MESSAGE = "Name placeholder";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         medicineList = (ListView) findViewById(R.id.medicineListView);
-
         medicineName = (TextView) findViewById(R.id.medicineNameView);
         medicineAmount = (TextView) findViewById(R.id.medicineAmountView);
         medicineTime = (TextView) findViewById(R.id.medicineTimeView);
+        addingButton = (Button) findViewById(R.id.addButton);
+
         medicineName.setEnabled(false);
         medicineName.setVisibility(View.INVISIBLE);
         medicineAmount.setEnabled(false);
         medicineAmount.setVisibility(View.INVISIBLE);
         medicineTime.setEnabled(false);
         medicineTime.setVisibility(View.INVISIBLE);
+        addingButton.setEnabled(false);
+        addingButton.setVisibility(View.INVISIBLE);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        medicineList.setAdapter(new ArrayAdapter<ReminderClass>(this, android.R.layout.simple_list_item_1, ReminderSingleton.getInstance().getNewReminder())
-        );
+        medicineList.setAdapter(new ArrayAdapter<ReminderClass>(this, android.R.layout.simple_list_item_1, ReminderSingleton.getInstance().getNewReminder()));
+    }
+
+    public void addNewReminder (View view){         //when the "ADD" -button is clicked
+
+    Intent nameIntent = new Intent(this, NameInput.class);
+    EditText nameText = (EditText) findViewById(R.id.medicineNameView);
+    String nameString = nameText.getText().toString();
+    nameIntent.putExtra(NAME_MESSAGE, nameString);
+
+
+
+
     }
 
 }
