@@ -2,6 +2,6 @@
     <string name="app_name">MedicineMateV1.1</string>
     <string name="title_home">Reminders</string>
     <string name="title_dashboard">Add</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Help</string>
     <string name="button_add">ADD</string>
 </resources>

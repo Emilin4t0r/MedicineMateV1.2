@@ -1,5 +1,6 @@
 package com.example.medicinematev11;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,8 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     reminders_list.add(reminderClass.toString());
 
                     arrayAdapter.notifyDataSetChanged();
+
                     nameText.setText(null);
                     amountText.setText(null);
                     timeText.setText(null);
