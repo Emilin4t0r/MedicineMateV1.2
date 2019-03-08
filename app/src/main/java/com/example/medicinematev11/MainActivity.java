@@ -31,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView medicineTime;
     private Button addingButton;
 
-
+    String newName;
+    String newAmount;
+    String newTime;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -131,9 +133,26 @@ public class MainActivity extends AppCompatActivity {
         addingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reminders_list.add("Loquat");
 
-                arrayAdapter.notifyDataSetChanged();
+                EditText nameText = (EditText) findViewById(R.id.medicineNameView);
+                EditText amountText = (EditText) findViewById(R.id.medicineAmountView);
+                EditText timeText = (EditText) findViewById(R.id.medicineTimeView);
+                newName = nameText.getText().toString();
+                newAmount = amountText.getText().toString();
+                newTime = timeText.getText().toString();
+
+                ReminderClass reminderClass = new ReminderClass(newName, newAmount, newTime);
+
+                if (newName.isEmpty() || newAmount.isEmpty() || newTime.isEmpty()) {
+
+                }else {
+                    reminders_list.add(reminderClass.toString());
+
+                    arrayAdapter.notifyDataSetChanged();
+                    nameText.setText(null);
+                    amountText.setText(null);
+                    timeText.setText(null);
+                }
             }
         });
     }

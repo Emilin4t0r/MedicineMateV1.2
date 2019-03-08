@@ -1,8 +1,5 @@
 package com.example.medicinematev11;
 
-import android.content.Intent;
-import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,6 @@ public class ReminderSingleton {
     static ReminderSingleton getInstance() {
         return ourInstance;
     }
-
 
     /**
      *
