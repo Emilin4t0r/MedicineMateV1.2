@@ -121,7 +121,7 @@
         android:layout_marginBottom="8dp"
         android:lineSpacingExtra="0sp"
         android:onClick="addNewReminder"
-        android:text="ADD"
+        android:text="@string/button_add"
         android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
