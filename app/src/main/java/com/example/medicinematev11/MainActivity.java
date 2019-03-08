@@ -14,6 +14,9 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.jar.Attributes;
 
 /**
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.title_home);
 
-                    medicineList.setEnabled(true);                  //sets the list so that it can be used
+                    medicineList.setEnabled(true);                  //sets the list usable
                     medicineList.setVisibility(View.VISIBLE);       //sets the list visible
 
                     medicineName.setEnabled(false);
@@ -114,18 +117,24 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         medicineList.setAdapter(new ArrayAdapter<ReminderClass>(this, android.R.layout.simple_list_item_1, ReminderSingleton.getInstance().getNewReminder()));
+
+        //uutta shittii
+        String[] reminders = new String[]{};
+
+        final List<String> reminders_list = new ArrayList<String>(Arrays.asList(reminders));
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+                (this, android.R.layout.simple_list_item_1, reminders_list);
+
+        medicineList.setAdapter(arrayAdapter);
+
+        addingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reminders_list.add("Loquat");
+
+                arrayAdapter.notifyDataSetChanged();
+            }
+        });
     }
-
-    public void addNewReminder (View view){         //when the "ADD" -button is clicked
-
-    Intent nameIntent = new Intent(this, NameInput.class);
-    EditText nameText = (EditText) findViewById(R.id.medicineNameView);
-    String nameString = nameText.getText().toString();
-    nameIntent.putExtra(NAME_MESSAGE, nameString);
-
-
-
-
-    }
-
 }
