@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,18 +24,20 @@ import java.util.jar.Attributes;
 /**
  * 
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
     private TextView mTextMessage;
     private ListView medicineList;
     private TextView medicineName;
     private TextView medicineAmount;
-    private TextView medicineTime;
+
     private Button addingButton;
+    private Button timeButton;
+
 
     String newName;
     String newAmount;
-    String newTime;
+    String newTime = "";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -52,10 +55,12 @@ public class MainActivity extends AppCompatActivity {
                     medicineName.setVisibility(View.INVISIBLE);
                     medicineAmount.setEnabled(false);
                     medicineAmount.setVisibility(View.INVISIBLE);
-                    medicineTime.setEnabled(false);
-                    medicineTime.setVisibility(View.INVISIBLE);
+
                     addingButton.setEnabled(false);
                     addingButton.setVisibility(View.INVISIBLE);
+
+                    timeButton.setEnabled(false);
+                    timeButton.setVisibility(View.INVISIBLE);
 
                     return true;
                 case R.id.navigation_dashboard:
@@ -68,10 +73,12 @@ public class MainActivity extends AppCompatActivity {
                     medicineName.setVisibility(View.VISIBLE);
                     medicineAmount.setEnabled(true);
                     medicineAmount.setVisibility(View.VISIBLE);
-                    medicineTime.setEnabled(true);
-                    medicineTime.setVisibility(View.VISIBLE);
+
                     addingButton.setEnabled(true);
                     addingButton.setVisibility(View.VISIBLE);
+
+                    timeButton.setEnabled(true);
+                    timeButton.setVisibility(View.VISIBLE);
 
                     return true;
                 case R.id.navigation_notifications:
@@ -84,10 +91,12 @@ public class MainActivity extends AppCompatActivity {
                     medicineName.setVisibility(View.INVISIBLE);
                     medicineAmount.setEnabled(false);
                     medicineAmount.setVisibility(View.INVISIBLE);
-                    medicineTime.setEnabled(false);
-                    medicineTime.setVisibility(View.INVISIBLE);
+
                     addingButton.setEnabled(false);
                     addingButton.setVisibility(View.INVISIBLE);
+
+                    timeButton.setEnabled(false);
+                    timeButton.setVisibility(View.INVISIBLE);
 
                     return true;
             }
@@ -100,20 +109,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         medicineList = (ListView) findViewById(R.id.medicineListView);
         medicineName = (TextView) findViewById(R.id.medicineNameView);
         medicineAmount = (TextView) findViewById(R.id.medicineAmountView);
-        medicineTime = (TextView) findViewById(R.id.medicineTimeView);
+
         addingButton = (Button) findViewById(R.id.addButton);
+        timeButton = (Button) findViewById(R.id.timeButton);
 
         medicineName.setEnabled(false);
         medicineName.setVisibility(View.INVISIBLE);
         medicineAmount.setEnabled(false);
         medicineAmount.setVisibility(View.INVISIBLE);
-        medicineTime.setEnabled(false);
-        medicineTime.setVisibility(View.INVISIBLE);
+
         addingButton.setEnabled(false);
         addingButton.setVisibility(View.INVISIBLE);
+
+        timeButton.setEnabled(false);
+        timeButton.setVisibility(View.INVISIBLE);
 
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -137,10 +151,10 @@ public class MainActivity extends AppCompatActivity {
 
                 EditText nameText = (EditText) findViewById(R.id.medicineNameView);
                 EditText amountText = (EditText) findViewById(R.id.medicineAmountView);
-                EditText timeText = (EditText) findViewById(R.id.medicineTimeView);
+
                 newName = nameText.getText().toString();
                 newAmount = amountText.getText().toString();
-                newTime = timeText.getText().toString();
+
 
                 ReminderClass reminderClass = new ReminderClass(newName, newAmount, newTime);
 
@@ -153,9 +167,35 @@ public class MainActivity extends AppCompatActivity {
 
                     nameText.setText(null);
                     amountText.setText(null);
-                    timeText.setText(null);
+
+                    timeButton.setText(R.string.hint_time);
+
+                    newTime = "";
                 }
             }
         });
+
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment timePicker = new TimePickerFragment();
+                timePicker.show(getSupportFragmentManager(), "time picker");
+
+            }
+        });
+    }
+
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+
+        newTime = hourOfDay + ":" + minute;
+
+
+        timeButton.setText(newTime);
+
+
+
     }
 }

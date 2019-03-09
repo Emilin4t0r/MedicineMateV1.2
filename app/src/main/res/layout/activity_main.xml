@@ -63,12 +63,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
-        android:hint="Name"
+        android:hint="@string/hint_name"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/navigation" />
+        app:layout_constraintTop_toBottomOf="@+id/navigation"
+        tools:targetApi="o" />
 
     <EditText
         android:id="@+id/medicineAmountView"
@@ -80,30 +82,16 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
-        android:hint="Amount"
+        android:hint="@string/hint_amount"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medicineNameView" />
+        app:layout_constraintTop_toBottomOf="@+id/medicineNameView"
+        tools:targetApi="o" />
 
-    <EditText
-        android:id="@+id/medicineTimeView"
-        android:layout_width="72dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:ems="10"
-        android:hint="Time"
-        android:inputType="time"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medicineAmountView" />
+
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -123,7 +111,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:lineSpacingExtra="0sp"
-        android:onClick="addNewReminder"
         android:text="@string/button_add"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -131,21 +118,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
-    <TimePickerDialog
-        android:id="@+id/timePicker1"
-        android:layout_width="395dp"
-        android:layout_height="335dp"
+    <Button
+        android:id="@+id/timeButton"
+        android:layout_width="165dp"
+        android:layout_height="124dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="303dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="304dp"
+        android:lineSpacingExtra="0sp"
+        android:text="@string/hint_time"
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medicineAmountView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

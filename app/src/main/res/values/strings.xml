@@ -4,4 +4,7 @@
     <string name="title_dashboard">Add</string>
     <string name="title_notifications">Help</string>
     <string name="button_add">ADD</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_amount">Amount</string>
+    <string name="hint_time">Time</string>
 </resources>
