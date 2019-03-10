@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 AlertDialog.Builder adb=new AlertDialog.Builder(MainActivity.this);
                 adb.setTitle("Delete?");
-                adb.setMessage("Are you sure you want to delete " + position);
+                adb.setMessage("Are you sure you want to delete the alert?");
                 final int positionToRemove = position;
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
