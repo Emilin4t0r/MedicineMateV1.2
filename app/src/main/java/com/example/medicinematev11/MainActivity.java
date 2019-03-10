@@ -3,6 +3,7 @@ package com.example.medicinematev11;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.AlarmClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.DialogFragment;
@@ -38,6 +39,11 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     String newName;
     String newAmount;
     String newTime = "";
+
+    String alarmName;
+
+    int newHour;
+    int newMinutes;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -165,12 +171,12 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
                     arrayAdapter.notifyDataSetChanged();
 
-                    nameText.setText(null);
-                    amountText.setText(null);
+                    newAlarm();
 
-                    timeButton.setText(R.string.hint_time);
 
-                    newTime = "";
+                    clearVar();
+
+
                 }
             }
         });
@@ -189,13 +195,50 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
+        newHour = hourOfDay;
+        newMinutes = minute;
 
-        newTime = hourOfDay + ":" + minute;
-
+        newTime = newHour + ":" + newMinutes;
 
         timeButton.setText(newTime);
 
+    }
+
+    public void newAlarm() {
+        Intent alarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 
 
+
+        alarm.putExtra(AlarmClock.EXTRA_HOUR, newHour);
+        alarm.putExtra(AlarmClock.EXTRA_MINUTES, newMinutes);
+
+        // näkymä ei enää vaihdu herätyskelloon, kun tätä käytetään
+        alarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+
+        //luodaan muuttuja, joka asetetaan hälyytyksen viestiksi
+        alarmName = newName + "   |   " + newAmount;
+        alarm.putExtra(AlarmClock.EXTRA_MESSAGE, alarmName);
+
+        startActivity(alarm);
+
+    }
+
+    public void delAlarm() {
+        //poistaa hälyytyksen, kun listasta poistetaan muistutus
+
+        //puuttuu vielä :/
+    }
+
+    public void clearVar() {
+
+        EditText nameText = (EditText) findViewById(R.id.medicineNameView);
+        EditText amountText = (EditText) findViewById(R.id.medicineAmountView);
+        nameText.setText(null);
+        amountText.setText(null);
+        timeButton.setText(R.string.hint_time);
+        newHour = 0;
+        newMinutes = 0;
+        newTime = "";
+        alarmName = "";
     }
 }
