@@ -4,12 +4,14 @@ import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.AlarmClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,6 +22,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.AdapterView.OnItemClickListener;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     private ListView medicineList;
     private TextView medicineName;
     private TextView medicineAmount;
-
+    private ArrayList reminders_list;
     private Button addingButton;
     private Button timeButton;
 
@@ -116,8 +123,11 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
 
+        loadData();
 
 
         medicineList = (ListView) findViewById(R.id.medicineListView);
@@ -153,6 +163,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 (this, android.R.layout.simple_list_item_1, reminders_list);
 
         medicineList.setAdapter(arrayAdapter);
+
 
         addingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,8 +219,33 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 adb.show();
             }
         });
-    }
 
+    }
+    private void saveData(){
+        SharedPreferences sharedPref = getSharedPreferences("label", MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(reminders_list);
+        editor.putString("reminder list", json);
+        editor.apply();
+    }
+    private void loadData(){
+        SharedPreferences sharedPref = getSharedPreferences("label", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPref.getString("reminder list", null);
+        Type type = new TypeToken<ArrayList<ReminderClass>>() {}.getType();
+        reminders_list = gson.fromJson(json, type);
+
+        if (reminders_list == null){
+            reminders_list = new ArrayList<>();
+        }
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        saveData();
+        Log.d("debug","onPause");
+    }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
