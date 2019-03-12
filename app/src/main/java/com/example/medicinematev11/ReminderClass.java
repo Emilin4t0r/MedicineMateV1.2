@@ -7,8 +7,6 @@ import java.util.ArrayList;
  */
 public class ReminderClass {
 
-    ArrayList<ReminderClass> newReminder;
-
     String name;
     String amount;
     String time;

@@ -39,7 +39,6 @@ import java.util.jar.Attributes;
  */
 public class MainActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener {
 
-    private TextView mTextMessage;
     private ListView medicineList;
     private TextView medicineName;
     private TextView medicineAmount;
@@ -67,55 +66,40 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-
-                    medicineList.setEnabled(true);                  //sets the list usable
-                    medicineList.setVisibility(View.VISIBLE);       //sets the list visible
-
+                    medicineList.setEnabled(true);
+                    medicineList.setVisibility(View.VISIBLE);
                     medicineName.setEnabled(false);
                     medicineName.setVisibility(View.INVISIBLE);
                     medicineAmount.setEnabled(false);
                     medicineAmount.setVisibility(View.INVISIBLE);
-
                     addingButton.setEnabled(false);
                     addingButton.setVisibility(View.INVISIBLE);
-
                     timeButton.setEnabled(false);
                     timeButton.setVisibility(View.INVISIBLE);
 
                     return true;
                 case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-
                     medicineList.setEnabled(false);
                     medicineList.setVisibility(View.INVISIBLE);
-
                     medicineName.setEnabled(true);
                     medicineName.setVisibility(View.VISIBLE);
                     medicineAmount.setEnabled(true);
                     medicineAmount.setVisibility(View.VISIBLE);
-
                     addingButton.setEnabled(true);
                     addingButton.setVisibility(View.VISIBLE);
-
                     timeButton.setEnabled(true);
                     timeButton.setVisibility(View.VISIBLE);
 
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-
                     medicineList.setEnabled(false);
                     medicineList.setVisibility(View.INVISIBLE);
-
                     medicineName.setEnabled(false);
                     medicineName.setVisibility(View.INVISIBLE);
                     medicineAmount.setEnabled(false);
                     medicineAmount.setVisibility(View.INVISIBLE);
-
                     addingButton.setEnabled(false);
                     addingButton.setVisibility(View.INVISIBLE);
-
                     timeButton.setEnabled(false);
                     timeButton.setVisibility(View.INVISIBLE);
 
@@ -146,14 +130,11 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         medicineName.setVisibility(View.INVISIBLE);
         medicineAmount.setEnabled(false);
         medicineAmount.setVisibility(View.INVISIBLE);
-
         addingButton.setEnabled(false);
         addingButton.setVisibility(View.INVISIBLE);
-
         timeButton.setEnabled(false);
         timeButton.setVisibility(View.INVISIBLE);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
