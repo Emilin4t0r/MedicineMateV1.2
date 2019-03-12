@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     String newTime = "";
 
     String alarmName;
+    String alarmUri;
+
 
     int newHour;
     int newMinutes;
@@ -274,6 +276,11 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         alarmName = newName + "   |   " + newAmount;
         alarm.putExtra(AlarmClock.EXTRA_MESSAGE, alarmName);
 
+        //lisätään hälyytykselle Uri
+
+        //alarm.setData();
+
+
         startActivity(alarm);
 
     }
@@ -281,7 +288,10 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     public void delAlarm() {
         //poistaa hälyytyksen, kun listasta poistetaan muistutus
 
-        //puuttuu vielä :/
+
+        //
+
+
     }
 
     public void clearVar() {
