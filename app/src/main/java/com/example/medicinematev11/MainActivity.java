@@ -29,7 +29,9 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.jar.Attributes;
 
 /**
@@ -44,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     private ArrayList reminders_list;
     private Button addingButton;
     private Button timeButton;
-
+    public SharedPreferences shared;
+    private String arrayString;
 
     String newName;
     String newAmount;
@@ -127,9 +130,9 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
         setContentView(R.layout.activity_main);
 
-        loadData();
 
-
+        shared = getSharedPreferences("App_settings", MODE_PRIVATE);
+        reminders_list = new ArrayList<String>();
         medicineList = (ListView) findViewById(R.id.medicineListView);
         medicineName = (TextView) findViewById(R.id.medicineNameView);
         medicineAmount = (TextView) findViewById(R.id.medicineAmountView);
@@ -165,6 +168,15 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         medicineList.setAdapter(arrayAdapter);
 
 
+        Set<String> set = shared.getStringSet("DATE_LIST", null);
+        if(set != null) {
+            reminders_list.addAll(set);
+
+
+        }
+        arrayAdapter.notifyDataSetChanged();
+
+
         addingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -181,14 +193,21 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 if (newName.isEmpty() || newAmount.isEmpty() || newTime.isEmpty()) {
 
                 }else {
-                    reminders_list.add(reminderClass.toString());
-
+                    arrayString = reminderClass.toString();
+                    reminders_list.add(arrayString);
                     arrayAdapter.notifyDataSetChanged();
+                    SharedPreferences.Editor editor = shared.edit();
+                    Set<String> set = new HashSet<String>();
+                    set.addAll(reminders_list);
+                    editor.putStringSet("DATE_LIST", set);
+                    editor.apply();
 
                     newAlarm();
 
 
                     clearVar();
+
+
 
 
                 }
@@ -215,36 +234,45 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                     public void onClick(DialogInterface dialog, int which) {
                         reminders_list.remove(positionToRemove);
                         arrayAdapter.notifyDataSetChanged();
+                        //tallenna dataset
+                        SharedPreferences.Editor editor = shared.edit();
+                        Set<String> set = new HashSet<String>();
+                        set.addAll(reminders_list);
+                        editor.putStringSet("DATE_LIST", set);
+                        editor.apply();
+                        arrayAdapter.notifyDataSetChanged();
+
                     }});
                 adb.show();
             }
         });
 
     }
-    private void saveData(){
+    private void saveData() {
         SharedPreferences sharedPref = getSharedPreferences("label", MODE_PRIVATE);
-        SharedPreferences.Editor editor= sharedPref.edit();
+        SharedPreferences.Editor editor = sharedPref.edit();
         Gson gson = new Gson();
         String json = gson.toJson(reminders_list);
-        editor.putString("reminder list", json);
+        editor.putString("key", json);
         editor.apply();
+        Log.d("debug","save Data");
+
     }
     private void loadData(){
         SharedPreferences sharedPref = getSharedPreferences("label", MODE_PRIVATE);
         Gson gson = new Gson();
-        String json = sharedPref.getString("reminder list", null);
-        Type type = new TypeToken<ArrayList<ReminderClass>>() {}.getType();
-        reminders_list = gson.fromJson(json, type);
+        String json = sharedPref.getString("key", "");
+        List<String> textList = Arrays.asList(gson.fromJson(json, String[].class));
 
-        if (reminders_list == null){
-            reminders_list = new ArrayList<>();
-        }
+
+
+
     }
     @Override
     protected void onPause(){
         super.onPause();
-        saveData();
-        Log.d("debug","onPause");
+
+
     }
 
     @Override

@@ -28,7 +28,7 @@ public class ReminderClass {
      */
     @Override
     public String toString(){
-        String output = (name + "   |   " + amount + "   |   " + time);
+        String output = (name + " | " + amount + " | " + time);
         return output;
     }
 }
