@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
     private Button timeButton;
     public SharedPreferences shared;
     private String arrayString;
+    private ImageView imageView;
 
     String newName;
     String newAmount;
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
     int newHour;
     int newMinutes;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -76,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                     addingButton.setVisibility(View.INVISIBLE);
                     timeButton.setEnabled(false);
                     timeButton.setVisibility(View.INVISIBLE);
+                    imageView.setEnabled(false);
+                    imageView.setVisibility(View.INVISIBLE);
 
                     return true;
                 case R.id.navigation_dashboard:
@@ -89,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                     addingButton.setVisibility(View.VISIBLE);
                     timeButton.setEnabled(true);
                     timeButton.setVisibility(View.VISIBLE);
+                    imageView.setEnabled(false);
+                    imageView.setVisibility(View.INVISIBLE);
 
                     return true;
                 case R.id.navigation_notifications:
@@ -102,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                     addingButton.setVisibility(View.INVISIBLE);
                     timeButton.setEnabled(false);
                     timeButton.setVisibility(View.INVISIBLE);
+                    imageView.setEnabled(true);
+                    imageView.setVisibility(View.VISIBLE);
 
                     return true;
             }
@@ -119,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         medicineList = (ListView) findViewById(R.id.medicineListView);
         medicineName = (TextView) findViewById(R.id.medicineNameView);
         medicineAmount = (TextView) findViewById(R.id.medicineAmountView);
-
+        imageView = (ImageView) findViewById(R.id.imageView);
         addingButton = (Button) findViewById(R.id.addButton);
         timeButton = (Button) findViewById(R.id.timeButton);
 
