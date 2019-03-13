@@ -108,14 +108,11 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             return false;
         }
     };
-    public static final String NAME_MESSAGE = "Name placeholder";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         setContentView(R.layout.activity_main);
-
 
         shared = getSharedPreferences("App_settings", MODE_PRIVATE);
         reminders_list = new ArrayList<String>();
@@ -138,9 +135,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        medicineList.setAdapter(new ArrayAdapter<ReminderClass>(this, android.R.layout.simple_list_item_1, ReminderSingleton.getInstance().getNewReminder()));
 
-        //uutta shittii
         String[] reminders = new String[]{};
 
         final List<String> reminders_list = new ArrayList<String>(Arrays.asList(reminders));
@@ -187,12 +182,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
                     newAlarm();
 
-
                     clearVar();
-
-
-
-
                 }
             }
 
@@ -224,12 +214,10 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                         editor.putStringSet("DATE_LIST", set);
                         editor.apply();
                         arrayAdapter.notifyDataSetChanged();
-
                     }});
                 adb.show();
             }
         });
-
     }
     private void saveData() {
         SharedPreferences sharedPref = getSharedPreferences("label", MODE_PRIVATE);
@@ -246,16 +234,10 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         Gson gson = new Gson();
         String json = sharedPref.getString("key", "");
         List<String> textList = Arrays.asList(gson.fromJson(json, String[].class));
-
-
-
-
     }
     @Override
     protected void onPause(){
         super.onPause();
-
-
     }
 
     @Override
@@ -267,13 +249,10 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         newTime = newHour + ":" + newMinutes;
 
         timeButton.setText(newTime);
-
     }
 
     public void newAlarm() {
         Intent alarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-
-
 
         alarm.putExtra(AlarmClock.EXTRA_HOUR, newHour);
         alarm.putExtra(AlarmClock.EXTRA_MINUTES, newMinutes);
@@ -289,9 +268,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
         //alarm.setData();
 
-
         startActivity(alarm);
-
     }
 
     public void delAlarm() {
@@ -299,8 +276,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
 
 
         //
-
-
     }
 
     public void clearVar() {
