@@ -207,6 +207,9 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         });
         medicineList.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+
+                final String idD = reminders_list.get(position);
+
                 AlertDialog.Builder adb=new AlertDialog.Builder(MainActivity.this);
                 adb.setTitle("Delete?");
                 adb.setMessage("Are you sure you want to delete the alert?");
@@ -214,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
                 adb.setNegativeButton("Cancel", null);
                 adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        delAlarm(idD);
                         reminders_list.remove(positionToRemove);
                         arrayAdapter.notifyDataSetChanged();
                         //tallenna dataset
@@ -239,7 +243,13 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         newHour = hourOfDay;
         newMinutes = minute;
 
-        newTime = newHour + ":" + newMinutes;
+        String newerMinutes = Integer.toString(newMinutes);
+        int length = newerMinutes.length();
+        if(length == 1){
+            newerMinutes = "0" + newerMinutes;
+        }else{}
+
+        newTime = newHour + ":" + newerMinutes;
 
         timeButton.setText(newTime);
     }
@@ -254,21 +264,25 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
         alarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
 
         //luodaan muuttuja, joka asetetaan hälyytyksen viestiksi
-        alarmName = newName + "   |   " + newAmount;
+        alarmName = (newName + " | " + newAmount + " | " + newTime);
         alarm.putExtra(AlarmClock.EXTRA_MESSAGE, alarmName);
 
-        //lisätään hälyytykselle Uri
-
-        //alarm.setData();
 
         startActivity(alarm);
     }
 
-    public void delAlarm() {
+    public void delAlarm(String id) {
         //poistaa hälyytyksen, kun listasta poistetaan muistutus
 
+        String identfier = id;
 
-        //
+        Intent alarmDel = new Intent(AlarmClock.ACTION_DISMISS_ALARM);
+
+        //valitaan poistettava hälyytys
+        alarmDel.putExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE, AlarmClock.ALARM_SEARCH_MODE_LABEL);
+        alarmDel.putExtra(AlarmClock.EXTRA_MESSAGE, identfier);
+
+        startActivity(alarmDel);
     }
 
     public void clearVar() {
