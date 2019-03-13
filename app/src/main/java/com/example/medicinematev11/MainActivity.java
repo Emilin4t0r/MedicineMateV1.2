@@ -219,22 +219,6 @@ public class MainActivity extends AppCompatActivity implements TimePickerDialog.
             }
         });
     }
-    private void saveData() {
-        SharedPreferences sharedPref = getSharedPreferences("label", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(reminders_list);
-        editor.putString("key", json);
-        editor.apply();
-        Log.d("debug","save Data");
-
-    }
-    private void loadData(){
-        SharedPreferences sharedPref = getSharedPreferences("label", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPref.getString("key", "");
-        List<String> textList = Arrays.asList(gson.fromJson(json, String[].class));
-    }
     @Override
     protected void onPause(){
         super.onPause();
