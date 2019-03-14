@@ -7,9 +7,9 @@ import java.util.ArrayList;
  */
 public class ReminderClass {
 
-    String name;
-    String amount;
-    String time;
+    String name;    //name of the reminder
+    String amount;  //amount of the dosage
+    String time;    //time for taking the medicine
 
     /**
      * @param name
